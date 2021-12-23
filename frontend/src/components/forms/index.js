@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{ useState }  from 'react';
 import { makeStyles,createTheme,ThemeProvider} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Senha from "../Senha";
@@ -19,13 +19,23 @@ const theme = createTheme({
   },
 });
 function Forms() {
+  const [nome,setnome] = useState([]);
+  const [senha,setsenha] = useState([]);
+ function  gravar(e){
+    e.preventDefault();
+    console.log(nome);
+    console.log(senha);
+ } 
+
   const classes = useStyles();
   return (
-    <form className={classes.root} noValidate autoComplete="off">
-      <TextField id="filled-basic" label="E-mail" variant="filled" />
-      <Senha />
+    <form onSubmit = {gravar} className={classes.root} noValidate autoComplete="off">
+      <TextField id="filled-basic" label="E-mail" variant="filled" value={nome}
+      onChange={e => setnome(e.target.value)}/>
+      <Senha value={senha}
+      onChange={e => setsenha(e.target.value)}/>
       <ThemeProvider theme={theme}>
-        <Button variant="outlined" color="primary" className={classes.margin}>
+        <Button type="submit" variant="outlined" color="primary" className={classes.margin}>
           ENVIAR
         </Button>
       </ThemeProvider>
